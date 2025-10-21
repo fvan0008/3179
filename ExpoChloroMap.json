@@ -2,7 +2,7 @@
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "title": "Miku Expos held around the world(2014-2024)",
     "width": 400,
-    "height": 400,
+    "height": 200,
     "projection": {"type": "equalEarth"},
     "layer": [
         {
@@ -56,14 +56,14 @@
                     "field": "Total_Expo",
                     "type": "quantitative",
                     "scale": {
-                    "type": "threshold",
-                    "domain": [1, 3, 10],
-                    "range": ["#FFFFFF", "#E0FFFD", "#47FFF6", "#00E0DA"]
+                        "type": "threshold",
+                        "domain": [1, 3, 10],
+                        "range": ["#edf8fb", "#b2e2e2", "#66c2a4", "#238b45"]
                     }
                 },
                 "tooltip": [
                 {"field": "Expo_Country", "type": "nominal", "title": "Country"},
-                {"field": "Total_Expo", "type": "quantitative" }
+                {"field": "Total_Expo", "type": "quantitative", "title": "Total Expos" }
                 ]
             }
         }

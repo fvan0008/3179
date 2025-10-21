@@ -1,0 +1,100 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "data": {
+    "url": "https://raw.githubusercontent.com/fvan0008/3179/refs/heads/main/ExpoFullSongList.csv"
+  },
+  "title": "Artists",
+  "hconcat": [
+    {
+      "mark": "bar",
+      "transform": [
+        {"filter": {"param": "brush"}},
+        {
+          "calculate": "toNumber(datum.Song_Plays)",
+          "as": "PlaysNum"
+        },
+        {
+          "joinaggregate": [{"op": "count", "as": "SongCount"}],
+          "groupby": ["Song_Artist"]
+        },
+        {
+          "window": [
+            {"op": "rank", "as": "rank"}
+          ],
+          "sort": [{"field": "PlaysNum", "order": "descending"}],
+          "groupby": ["Song_Artist"]
+        },
+        {"filter": "datum.rank == 1"}
+      ],
+      "encoding": {
+        "y": {
+          "field": "Song_Artist",
+          "type": "nominal",
+          "axis": {"minExtent": 200, "title": null},
+          "sort": "-x"
+        },
+        "x": {
+          "field": "SongCount",
+          "type": "quantitative",
+          "title": "Number of Songs",
+          "scale": {"domain": [0, 6]},
+          "axis": {"orient": "top"}
+        },
+        "color": {
+            "field": "PlaysNum", 
+            "type": "quantitative",
+            "scale": {
+                        "type": "threshold",
+                        "domain": [0, 5, 10, 50, 150],
+                        "range": ["#f1eef6", "#d0d1e6", "#a6bddb", "#74a9cf", "#2b8cbe", "#045a8d"]
+                    }
+        },
+        "tooltip": [
+          {"field": "Song_Artist", "title": "Artist"},
+          {"field": "SongCount", "title": "Number of Songs"},
+          {"field": "Song_Name", "title": "Most Popular Song"},
+          {"field": "PlaysNum", "title": "Most Popular Song Plays"}
+        ]
+      }
+    },
+    {
+      "height": 200,
+      "width": 50,
+      "params": [
+        {
+          "name": "brush",
+          "select": {
+            "type": "interval",
+            "encodings": ["y"]
+          }
+        }
+      ],
+      "mark": "bar",
+       "transform": [
+        {"calculate": "toNumber(datum.Song_Plays)", "as": "PlaysNum"},
+        {
+          "aggregate": [{"op": "count", "as": "SongCount"}],
+          "groupby": ["Song_Artist"]
+        }
+      ],
+      "encoding": {
+        "y": {
+          "field": "Song_Artist",
+          "type": "nominal",
+          "sort": "-x",
+          "axis": null
+        },
+        "x": {
+          "field": "SongCount",
+          "type": "quantitative",
+          "axis": null
+        },
+        "tooltip": [
+          {"field": "Song_Artist", "title": "Artist"},
+          {"field": "SongCount", "title": "Number of Songs"}
+        ]
+      }
+    }
+  ]
+}
+        

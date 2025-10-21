@@ -1,0 +1,45 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+    "width": 400,
+    "height": 400,
+  
+    "title": "Views of the Songs used in the Expo",
+    "data": {
+        "url": "https://raw.githubusercontent.com/fvan0008/3179/refs/heads/main/ExpoFullSongList.csv"
+    },
+    "transform": [{"filter": "datum.Song_Plays >= 1"}],
+
+    "mark": {"type": "circle", "size": 200},
+    "encoding": {
+        "x": {
+            "field": "Year_Released",
+            "type": "nominal",
+            "title": "Year Released"
+        },
+        "y": {
+            "field": "Song_Plays",
+            "type": "quantitative",
+            "title": "Times Played (Millions)",
+            "axis": {"tickCount": 7},
+            "scale": {"type": "log", "domain": [1, 250]}
+        },
+        "color": {"field": "Song_Vocalist", "type": "nominal"},
+        "size": {
+            "field": "Song_Plays",
+            "type": "quantitative",
+            "scale": {
+                "type": "threshold",
+                "domain": [1, 10, 50, 100, 150],
+                "range": [30, 50, 150, 200, 300, 400]
+            },
+            "legend": {"format": ".1s"}
+        },
+
+        "tooltip": [
+            {"field": "Song_Name", "type": "nominal", "title": "Song"},
+            {"field": "Song_Plays", "type": "nominal", "title": "Artist" },
+            {"field": "Song_Artist", "type": "nominal", "title": "Artist" },
+            {"field": "Song_Vocalist", "type": "nominal", "title": "Vocalist" }
+        ]
+    }
+}
