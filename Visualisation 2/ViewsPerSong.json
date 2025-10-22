@@ -1,0 +1,68 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+    "width": 900,
+    "height": 500,
+  
+    "title": "Views of the Songs used in the Expo",
+    "data": {
+        "url": "https://raw.githubusercontent.com/fvan0008/3179/refs/heads/main/ExpoFullSongList.csv"
+    },
+    "selection": {
+        "highlight": {
+            "type": "multi",
+            "fields": ["Song_Vocalist"],
+            "bind": "legend"
+        }
+    },
+
+    "mark": {"type": "circle", "size": 200},
+    "encoding": {
+        "x": {
+            "field": "Year_Released",
+            "type": "nominal",
+            "title": "Year Released"
+        },
+        "y": {
+            "field": "Song_Plays",
+            "type": "quantitative",
+            "title": "Times Played (Millions)",
+            "axis": {"tickCount": 5},
+            "scale": {"type": "log", "domain": [0.1, 250]}
+        },
+        "color": {
+            "field": "Song_Vocalist", 
+            "type": "nominal",
+            "scale": {
+                "domain": ["Miku", "Kaito", "Len", "Rin", "Luka", "Meiko", "Kaito & Meiko", "Miku & Kaito", "Miku & Luka", "Miku & Rin", "Rin & Len"],
+                "range": ["#1f77b4", "#2209c3", "#c2cc04", "#ead400", "#ea9999", "#bd0404", "#9e2af7", "#4a84f7", "#f73ecf", "#88fc35", "#ffea08"]
+            },
+            "legend": {
+                "title": "Vocalist"
+            }
+        },
+        "opacity": {
+            "condition": {
+                "selection": "highlight",
+                "value": 1
+            },
+            "value": 0.1
+        },
+        "size": {
+            "field": "Song_Plays",
+            "type": "quantitative",
+            "scale": {
+                "type": "threshold",
+                "domain": [0.1, 10, 50, 100, 150],
+                "range": [30, 50, 150, 200, 300, 400]
+            },
+            "legend": {"format": ".1s"}
+        },
+
+        "tooltip": [
+            {"field": "Song_Name", "type": "nominal", "title": "Song"},
+            {"field": "Song_Plays", "type": "nominal", "title": "Plays (Official Sources)" },
+            {"field": "Song_Artist", "type": "nominal", "title": "Artist" },
+            {"field": "Song_Vocalist", "type": "nominal", "title": "Vocalist" }
+        ]
+    }
+}

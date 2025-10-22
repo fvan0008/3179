@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Head Holds Css and JS files + Title -->
+<head>
+    <title>Miku Expo</title>
+    <!-- Import Vega & Vega-Lite (does not have to be from CDN) -->
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script>
+
+    <!-- Import pure.css -->
+    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css"
+        integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+
+    <!-- CSS file -->
+    <link rel="stylesheet" type="text/css" href="css/styles.css" media="all">
+
+    <title>Miku Expo Visualisation</title>
+</head>
+<!-- Body Holds All Visible Conternt -->
+<body>
+    <div id="background">
+        
+        <!-- Heading -->
+            <div class="page page-header section">
+                <div class="pure-g">
+                    <div class="pure-u-1-1 textalign">
+                        <h1>Hatsune Miku Expos</h1>
+                        <p>A data visualisation about Miku Expos from 2014-2024.</p>
+                    </div>
+                </div>
+            </div>
+        <!-- End of Heading -->
+
+        <!-- Start group -->
+        <div class="page section">
+            <div class="pure-u-1">
+                <div>
+                    <h2>Who is Hatsune Miku and What is the Miku Expo?</h2>
+                    <p>
+                        <span style= "color:#0595a8"><strong>Hatsune Miku</strong></span> is a Japanese Virtual Idol created by <a href = "https://en.wikipedia.org/wiki/Crypton_Future_Media">Crypton Media</a>.
+                        <span style="color:#0595a8"><strong>Hatsune Miku</strong></span> is special because she is a Vocaloid, which is a singer that is functionally an instrument. Her voice is entirely computer generated, meaning that
+                        much like how someone can use a computer to create a song with drums and guitar, artists can use the <span style="color:#0595a8"><strong>Hatsune Miku</strong></span> Vocaloid to sing the lyrics for the songs they make!
+                    </p>
+                    <p>
+                        The <span style= "color:#0595a8"><strong>Hatsune Miku</strong></span> vocaloid software was released for public use in 2007, and since then over <strong>100,000</strong> songs have been created my tens of thousands of producers.
+                        Instantly she became a hit in Japan, with concerts being held in Japan from 2008. As there are no "Official" songs created by the company, these concerts use licencenced songs from many different producers accompanied by 3D generated graphics to show the virtual idol dancing and singing on the stage!<br>
+                        Over time, her popularity grew, and with increasing demand for overseas concerts, the <span style="color:#0595a8"><strong>Miku Expo</strong></span> concerts were devised and performed starting in 2014, 
+                        which along with <span style="color:#0595a8"><strong>Hatsune Miku</strong></span>, also includes songs from the 5 other Vocaloids produced by Crypton Media. 
+                    </p>
+                </div>
+                <div class = "flex-container-row">
+                    <p>
+                        These other 5 Vocaloids are <br>
+                        <span style="color:#2209c3"><strong>Kaito</strong></span><br>  
+                        <span style="color:#c2cc04"><strong>Kagamine Len</strong></span><br>
+                        <span style="color:#ead400"><strong>Kagamine Rin</strong></span><br>
+                        <span style="color:#ea9999"><strong>Luka</strong></span><br>
+                        <span style="color:#bd0404"><strong>Meiko</strong></span><br>
+                        These 5 Vocaloids along with <span style="color:#0595a8"><strong>Hatsune Miku</strong></span> make up the <strong>"Crypton Six" </strong> who appear together in countless merchandise lines, games and songs together due to their shared producer.<br>
+                        Each member has a unique colour and is created as a relative blank slate, allowing for user's interpretations to be placed on them for different songs or videos.
+                        This is evident with <span style="color:#c2cc04"><strong>Kagamine Len</strong></span> and <span style="color:#ead400"><strong>Kagamine Rin</strong></span>
+                        who are portrayed as either brother and sister, or as boyfriend and girlfriend depending on who decides to make media using them as there is no official designation.
+                    </p>
+                    <a href="https://tvtropes.org/pmwiki/pmwiki.php/Characters/VocaloidCryptonFutureMedia" target="_blank">
+                        <img src="Crypton6Named.webp" alt="6 Crypton Media Vocaloids" title="The 6 Crypton Media Vocaloids" width="500" height="auto">
+                    </a>
+                </div>
+                <div>
+                    <p>
+                        Since the first <span style="color:#0595a8"><strong>Miku Expo</strong></span> in 2014, there have been 68 in person concerts around the world as visualised below!<br>
+                        As over 1/3 of <span style="color:#0595a8"><strong>Miku Expos</strong></span> have been held in America, click the "Switch Map" button in the top left to swap between the world map and a closer look at the American Concert Locations!<br>
+                        (Miku Expo 2024 Newark is not represented as Newark is not available as a city on Natural Earth)
+                    </p>
+                </div>
+            </div>
+            <div class="vis-wrapper">
+                <button onclick="toggleMap()" class="switch-button">Switch Map</button>
+                <div id="vis1" class="vis-container"></div>
+            </div>
+            <div class = "pure-u-1">
+                <p>
+                    <span style="color:#0595a8"><strong>Miku Expos</strong></span> have been performed all around the world for worldwide fans to enjoy. Australians were recently added to this list, with the 2024 Expo tour performing in Brisbane, Melbourne, Perth and Sydney.
+                </p>
+            </div>
+        </div>
+        <!-- end group -->
+
+        <!-- Start group -->
+        <div class="page section">
+            <div>
+                <h2>Songs Performed at the Expos</h2>
+                <p>
+                    There have been a total of <strong>136</strong> different songs performed at the 68 Expos. Each of the songs both range in the producer, how popular they are, as well as which Vocalist sings them.<br>
+                    Even though its the <span style="color:#0595a8"><strong>Miku Expo</strong></span>, that doesnt mean the other Vocalists arent allowed to perform. 
+                    Below is a graph showing the views of every song that has been performed at at least 1 <span style="color:#0595a8"><strong>Miku Expo</strong></span>, 
+                    sorted by year released, where you can click on the Vocalist to see their songs.
+                </p>
+            </div>
+            <div class="pure-u-1">
+                <div id="vis3" class="vis-container"></div>
+            </div>
+            <div>
+                <p>
+                    Looking at the graph we can see an overwhelming percentage of songs performed by 
+                    <span style="color:#0595a8"><strong>Hatsune Miku</strong></span> herself. 
+                    It is the <span style="color:#0595a8"><strong>Miku Expo</strong></span> after all!
+                    In fact the most viewed song performed at <span style="color:#0595a8"><strong>Miku Expo</strong></span> is actually called <a href = "https://www.youtube.com/watch?v=NocXEwsJGOQ" title="Watch 'Miku' on YouTube" target="_blank" rel="noopener noreferrer">"Miku"</a>
+                    by Anamanaguchi, an American Band. 
+                    But during the expos, which of the Vocaloids actually performs the most songs on average?
+                </p>
+            </div>
+            <div class="flex-container-row">
+                <div>
+                    <div id="vis4" class="vis-container"></div>
+                </div>
+                <div class="flex-container-col">
+                    <p>
+                        Looking to the left we see the answer is obviously also <span style="color:#0595a8"><strong>Hatsune Miku</strong></span>! 
+                        She performs 15+ songs on average per concert, followed veeeery far behind by duets performed by 
+                        <span style="color:#c2cc04"><strong>Kagamine Len</strong></span> and
+                        <span style="color:#ead400"><strong>Kagamine Rin</strong></span>
+                        who perform around 2-3 songs per expo, which is more than the solos they usually perform.
+                        All Vocaloids perform at least 1 solo song most Expos, with duets being more of a rarity that appears once in a while.
+                    </p>
+                    <div>
+                        <div id="vis5" class="vis-container"></div>
+                    </div>
+                </div>
+            </div>
+            <p>
+                Above is also a chart depicting the Songs that have been played the most over every expo. 
+                As we mentioned before, there have been <strong>68</strong> Expo performances held. Checking the pi chart for the most played, 
+                only 1 song has been played in every single Expo!<br>
+                This song is <a href = "https://www.youtube.com/watch?v=fmrA-gxJxgQ" title="Watch 'Tell your World' on YouTube" target="_blank" rel="noopener noreferrer">"Tell your World"</a> by kz.
+                The song is about <span style="color:#0595a8"><strong>Miku</strong></span> wanting to connect everyone in the world, which seems fitting for the Expo that connects <span style="color:#0595a8"><strong>Miku</strong></span> to the world!
+                Another interesting song is <a href = "https://www.youtube.com/watch?v=1st0XSY0VKQ" title="Watch 'Remote Control' on YouTube" target="_blank" rel="noopener noreferrer">"Remote Control"</a> by JesusP which is the 13th most played song, and the most performed song not sung by Miku, instead being sung by 
+                <span style="color:#c2cc04"><strong>Kagamine Len</strong></span> and <span style="color:#ead400"><strong>Kagamine Rin</strong></span>.
+            </p>
+        </div>
+        <!-- end group -->
+
+        <!-- Start group -->
+        <div class="page section">
+            <div>
+                <h2>The Producers of the Songs</h2>
+                <div class="flex-container-row">
+                    <p>
+                        For every song created using a Vocaloid, there must always be a Producer, creating the instrumental and adding the voice into the songs.
+                        As there isnt 1 main Producer that makes songs for the expo, the songs are sourced from many different producers. 
+                        In fact there have been 93 different producers that have had their songs performed at <span style="color:#0595a8"><strong>Miku Expo</strong></span>.<br>
+                        93 Producers creating a list of 136 songs means most Producers only get to have 1 song performed, but visualised on the right are the 22 Producers who have
+                        had more than 1 song Performed.<br>
+                        All of these Producers are extremely impactful in the community, with producers such as "ryo" having make 
+                        <a href = "https://www.youtube.com/watch?v=4u7FTSfCcmg" title="Watch 'Melt' on YouTube" target="_blank" rel="noopener noreferrer">"Melt"</a>, 
+                        which has been added to the game Fortnite.<br>
+                        The large amount of Producers really show a wonderful community surrounding <span style="color:#0595a8"><strong>Miku</strong></span> and the Crypton Vocaloids!
+                        <br><br><br>
+                        This visualisation is created by <a href="https://github.com/fvan0008/3179/tree/main" target="_blank">Finn Van Zuylen</a>. 
+                        The datasource is sourced from<a href="https://vocadb.net/Es/82/miku-expo" target=" _blank">vocadb</href> the official Vocaloid Database.
+                    
+                    </p>
+                    <div>
+                        <div id="vis6" class="vis-container"></div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+
+    </div>
+    <script type="text/javascript">
+    var mapVis1 = "./ExpoChloroMap.json";
+    var mapVis2 = "./AmericanConcerts.json";
+    var songVis1 = "./ViewsPerSong.json";
+    var vocalVis1 = "./VocaloidPerformances.json";
+    var songVis2 = "./MostPopularSongs.json";
+    var prodVis1 = "./PopularProducer.json";
+    var map1Visible = true;
+
+
+
+    vegaEmbed('#vis1', mapVis1, { "actions": false });
+
+    function toggleMap() {
+        if (map1Visible) {
+            vegaEmbed('#vis1', mapVis2, { "actions": false });
+        } else {
+            vegaEmbed('#vis1', mapVis1, { "actions": false });
+        }
+        map1Visible = !map1Visible;
+    }
+
+    vegaEmbed('#vis3', songVis1, { "actions": false }).then(function (result) {
+      // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+    }).catch(console.error);
+
+    vegaEmbed('#vis4', vocalVis1, { "actions": false }).then(function (result) {
+      // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+    }).catch(console.error);
+
+    vegaEmbed('#vis5', songVis2, { "actions": false }).then(function (result) {
+      // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+    }).catch(console.error);
+
+    vegaEmbed('#vis6', prodVis1, { "actions": false }).then(function (result) {
+      // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+    }).catch(console.error);
+
+  </script>
+</body>
+
+</html>

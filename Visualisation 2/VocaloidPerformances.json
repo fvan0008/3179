@@ -1,0 +1,72 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+  "width": 350,
+  "height": 600,
+  "title": "Average songs performed per expo per year",
+  "data": {
+    "url": "https://raw.githubusercontent.com/fvan0008/3179/refs/heads/main/Expo_Setlist_Data.csv"
+  },
+  "mark": "line",
+  "selection": {
+    "highlight": {
+      "type": "multi",
+      "fields": ["Song_Vocalist"],
+      "bind": "legend"
+    }
+  },
+  "transform": [
+    {
+      "aggregate": [{"op": "count", "as": "SongsPerYear"}],
+      "groupby": ["Expo_Year", "Song_Vocalist"]
+    },
+    {
+      "impute": "SongsPerYear",
+      "key": "Expo_Year",
+      "groupby": ["Song_Vocalist"],
+      "value": 0
+    },
+    {
+      "lookup": "Expo_Year",
+      "from": {
+        "data": {
+          "url": "https://raw.githubusercontent.com/fvan0008/3179/refs/heads/main/ConcertAmountPerYear.csv"
+        },
+        "key": "Expo_Year",
+        "fields": ["Expo_Amount"]
+      },
+      "as": ["ExpoCount"]
+    },
+    {
+      "calculate": "datum.SongsPerYear / datum.ExpoCount",
+      "as": "SongsPerExpo"
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "Expo_Year",
+      "type": "ordinal",
+      "title": "Year of the Expos"
+    },
+    "y": {
+      "field": "SongsPerExpo",
+      "type": "quantitative",
+      "title": "Average Songs Per Expo"
+    },
+    "color": {
+      "field": "Song_Vocalist",
+      "type": "nominal",
+      "scale": {
+        "domain": ["Miku", "Kaito", "Len", "Rin", "Luka", "Meiko", "Kaito & Meiko", "Miku & Kaito", "Miku & Luka", "Miku & Rin", "Rin & Len"],
+        "range": ["#1f77b4", "#2209c3", "#c2cc04", "#ead400", "#ea9999", "#bd0404", "#9e2af7", "#4a84f7", "#f73ecf", "#88fc35", "#ffea08"]
+      },
+      "title": "Vocalist Performing"
+    },
+    "opacity": {
+      "condition": {
+        "selection": "highlight",
+        "value": 1
+      },
+      "value": 0.1
+    }
+  }
+} 

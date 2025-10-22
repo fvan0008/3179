@@ -1,0 +1,64 @@
+{  
+    "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+    "data": {
+        "url": "https://raw.githubusercontent.com/fvan0008/3179/refs/heads/main/ExpoFullSongList.csv"
+    },
+    "hconcat": [
+        {
+            "mark": "bar",
+            "transform": [
+                {
+                    "calculate": "toNumber(datum.Song_Plays)",
+                    "as": "PlaysNum"
+                },
+                {
+                    "joinaggregate": [{"op": "count", "as": "SongCount"}],
+                    "groupby": ["Song_Artist"]
+                },
+                {
+                    "window": [
+                        {"op": "rank", "as": "rank"}
+                    ],
+                    "sort": [{"field": "PlaysNum", "order": "descending"}],
+                    "groupby": ["Song_Artist"]
+                },
+                {
+                    "filter": "datum.rank == 1"
+                },
+                {
+                    "filter": "datum.SongCount != 1"
+                }
+            ], 
+            "encoding": {
+                "y": {
+                    "field": "Song_Artist",
+                    "type": "nominal",
+                    "axis": {"minExtent": 200, "title": null},
+                    "sort": "-x"
+                },
+                "x": {
+                    "field": "SongCount",
+                    "type": "quantitative",
+                    "title": "Producers With More than 1 Song Performed",
+                    "axis":{"orient": "top"},
+                    "scale": {"domain": [0, 6]}
+                },
+                "color": {
+                    "field": "PlaysNum", 
+                    "type": "quantitative",
+                    "scale": {
+                        "type": "threshold",
+                        "domain": [0, 5, 10, 50, 100],
+                        "range": ["#eff3ff", "#c6dbef", "#9ecae1", "#6baed6", "#3182bd", "#08519c"]
+                    }
+                },
+                "tooltip": [
+                    {"field": "Song_Artist", "title": "Artist"},
+                    {"field": "SongCount", "title": "Number of Songs"},
+                    {"field": "Song_Name", "title": "Most Popular Song"},
+                    {"field": "PlaysNum", "title": "Most Popular Song Plays"}
+                ]
+            }
+        }
+    ]
+}

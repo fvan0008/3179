@@ -1,0 +1,76 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+    "width": 200,
+    "height": 400,
+  
+    "title": "Times Songs have been played in a concert",
+    "data": {
+      "url": "https://raw.githubusercontent.com/fvan0008/3179/refs/heads/main/Expo_Setlist_Data.csv"
+    },
+    "selection": {
+        "highlight": {
+            "type": "multi",
+            "fields": ["Song_Name"],
+            "bind": "legend"
+        }
+    },
+    "params": [
+        {
+            "name": "TopAmount",
+            "value": 20,
+            "bind":{
+                "input": "range",
+                "min": 5,
+                "max": 30,
+                "step": 1,
+                "name": "Amount to show: " 
+            }
+        }
+    ],
+    "transform":[
+        {
+            "aggregate": [{"op": "count", "as": "Occurrences"}],
+            "groupby": ["Song_Name", "Song_Artist", "Song_Vocalist", "Song_Plays"]
+        },
+        {
+            "window": [{"op": "rank", "as": "rank"}],
+            "sort": [
+                {"field": "Occurrences", "order": "descending"},
+                {"field": "Song_Name", "order": "ascending"}, 
+                {"field": "Song_Artist", "order": "ascending"}   
+            ]
+        },
+        {
+            "filter": "datum.rank <= TopAmount"
+        }
+    ],
+    "mark": {"type": "arc", "outerRadius": 115},
+    "encoding": {
+    "theta": {
+        "field": "Occurrences",     
+        "type": "quantitative"
+    },
+    "color": {
+        "field": "Song_Name",     
+        "type": "nominal",
+        "sort":{"field": "Occurrences", "order": "descending"},
+        "scale":{"scheme":"category20"},
+        "legend": {"title": "Top Songs"}
+    },
+    "opacity": {
+      "condition": {
+        "selection": "highlight",
+        "value": 1
+      },
+      "value": 0.1
+    },
+    "tooltip": [
+        {"field": "Song_Name", "type": "nominal"},
+        {"field": "Occurrences", "type": "quantitative", "title": "Occurrences"},
+        {"field": "Song_Artist", "type": "nominal", "title": "Producer"},
+        {"field": "Song_Vocalist", "type": "nominal", "title": "Vocalist"},
+        {"field": "Song_Plays", "type": "quantitative", "title": "Plays(Mil)"}
+    ]
+    },
+    "view": {"stroke": null}  
+}
