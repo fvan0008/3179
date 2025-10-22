@@ -1,0 +1,46 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v6.json",
+    "data": {"url": "https://raw.githubusercontent.com/fvan0008/3179/refs/heads/main/Expo_Setlist_Data.csv"},
+    "mark": "bar",
+    "transform":[
+        {
+            "aggregate": [{"op": "count", "as": "OccPerYear"}],
+            "groupby": ["Expo_Year", "Song_Vocalist"]
+        },
+        {
+            "window": [{"op": "rank", "as": "rank"}]
+        }
+    ],
+    "encoding": {
+        "x": {
+            "field": "Expo_Year",
+            "type": "ordinal",
+            "title": "Year of the Expo"
+        },
+        "y": {
+            "field": "OccPerYear",
+            "type": "quantitative"
+        },
+        "color": {
+            "field": "Song_Vocalist",
+            "type": "nominal",
+            "scale": {
+                "domain": ["Kaito", "Kaito & Miku", "Len", "Luka", "Meiko", "Miku", "Miku & Kaito", "Miku & Luka", "Miku & Rin", "Rin", "Rin & Len"],
+                "range": [
+                "#a6cee3",
+                "#1f78b4",
+                "#b2df8a",
+                "#33a02c",
+                "#fb9a99",
+                "#e31a1c",
+                "#fdbf6f",
+                "#ff7f00",
+                "#cab2d6",
+                "#6a3d9a",
+                "#ffff99"
+                ]
+            },
+            "title": "Vocalist Performing"
+        }
+    }
+}   
